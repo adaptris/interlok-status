@@ -45,8 +45,9 @@ jobs:
            echo "Public"
            return 0
         }
-        allprojects=${{ fromJson(steps.projects-list.outputs.all) }}
-        allprojects=$(echo ${allprojects[@]} | tr " " "\n" | sort | tr "\n" " ")
+        allprojects=${{ steps.projects-list.outputs.all }}
+        # Sort the list and convert from comma separated to space separated array
+        allprojects=$(echo ${allprojects[@]} | tr "," "\n" | sort | tr "\n" " ")
         echo ""
         echo "# interlok-status"
         echo ""
