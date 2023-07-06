@@ -13,15 +13,6 @@ jobs:
     name: Build Status Page
     needs: get-projects-list
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        project: ${{ fromJson(needs.get-projects-list.outputs.all) }}
-
-  build-status:
-    name: Build Status Page
-    needs: get-projects-list
-    runs-on: ubuntu-latest
     steps:
 
     - name: Get Private Repos
@@ -37,9 +28,9 @@ jobs:
           if [[ " ${privateRepos[*]} " =~ " $1 " ]]; then
             echo "Private"
             return 1
-	   fi
+          fi
            echo "Public"
-	   return 0
+           return 0
         }
         allprojects=${{ fromJson(needs.get-projects-list.outputs.all) }}
         allprojects=$(echo ${allprojects[@]} | tr " " "\n" | sort | tr "\n" " ")
