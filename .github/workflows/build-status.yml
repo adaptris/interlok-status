@@ -25,7 +25,6 @@ jobs:
         BOOTSTRAP_PROJECTS=$(cat $PROJECT_LISTS_DIR/bootstrap-projects.list)
         OPTIONAL_PROJECTS=$(cat $PROJECT_LISTS_DIR/optional-projects.list)
         PROJECT_LISTS="$BOOTSTRAP_PROJECTS"$'\n'"$OPTIONAL_PROJECTS"
-        sort $PROJECT_LISTS > $PROJECT_LISTS
         PROJECT_LISTS_JSON=$(echo "$PROJECT_LISTS" | jq -R -s -c 'split("\n")[:-1]')
         echo "all=$PROJECT_LISTS_JSON" >> $GITHUB_OUTPUT
 
