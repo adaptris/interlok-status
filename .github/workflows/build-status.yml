@@ -15,7 +15,7 @@ jobs:
       with:
         repository: interlok-tooling/pipeline
         ref: ${{ inputs.ref }}
-        token: ${{ secrets.PIPELINE_GITHUB_TOKEN }}
+        token: ${{ secrets.INTERLOKDEV_GITHUB_TOKEN }}
         path: pipeline
     - name: Get Projects List
       id: projects-list
