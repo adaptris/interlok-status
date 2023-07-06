@@ -36,7 +36,7 @@ jobs:
         echo "$PRIVATES_REPOS"
         echo "privateRepos=$PRIVATES_REPOS" >> $GITHUB_OUTPUT
       env:
-        GH_TOKEN: ${{ github.token }}
+        GH_TOKEN: ${{ secrets.INTERLOKDEV_GITHUB_TOKEN }}
 
     - name: Checkout Interlok Status
       uses: actions/checkout@v3
