@@ -25,8 +25,8 @@ jobs:
         BOOTSTRAP_PROJECTS=$(cat $PROJECT_LISTS_DIR/bootstrap-projects.list)
         OPTIONAL_PROJECTS=$(cat $PROJECT_LISTS_DIR/optional-projects.list)
         PROJECT_LISTS="$BOOTSTRAP_PROJECTS"$'\n'"$OPTIONAL_PROJECTS"
-        PROJECT_LISTS_JSON=$(echo "$PROJECT_LISTS" | jq -R -s -c 'split("\n")[:-1]')
-        echo "all=$PROJECT_LISTS_JSON" >> $GITHUB_OUTPUT
+        PROJECT_LISTS_SORTED=$(echo "$PROJECT_LISTS" | sort | tr "\n" " ")
+        echo "all=$PROJECT_LISTS_SORTED" >> $GITHUB_OUTPUT
 
     - name: Get Private Repos
       id: private-repos-list
@@ -46,8 +46,8 @@ jobs:
            return 0
         }
         allprojects=${{ steps.projects-list.outputs.all }}
-        # Sort the list and convert from comma separated to space separated array
-        allprojects=$(echo ${allprojects[@]} | tr "," "\n" | sort | tr "\n" " ")
+        allinstallers=("interlok-installer" "interlok-installer-cmd")
+
         echo ""
         echo "# interlok-status"
         echo ""
