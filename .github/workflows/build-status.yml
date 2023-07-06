@@ -31,7 +31,7 @@ jobs:
     - name: Get Private Repos
       id: private-repos-list
       run: |
-        PRIVATES_REPOS=($(gh repo list adaptris --no-archived --visibility private | grep -E 'interlok-|bip-' | sed -E 's/\t/ /'| sed -E 's/adaptris\/([^ ]+)( )+.*/"\1"/'  | tr "\n" " "))
+        PRIVATES_REPOS=$(gh repo list adaptris --no-archived --visibility private | grep -E 'interlok-|bip-' | sed -E 's/\t/ /'| sed -E 's/adaptris\/([^ ]+)( )+.*/"\1"/'  | tr "\n" " ")
         echo "privateRepos=$PRIVATES_REPOS" >> $GITHUB_OUTPUT
       env:
         GH_TOKEN: ${{ github.token }}
@@ -44,8 +44,7 @@ jobs:
 
     - name:  Build Status Page
       run: |
-        echo "${{ steps.private-repos-list.outputs.privateRepos }}"
-        privateRepos=${{ steps.private-repos-list.outputs.privateRepos }}
+        privateRepos=(${{ steps.private-repos-list.outputs.privateRepos }})
         getVisibility() {
           if [[ " ${privateRepos[*]} " =~ " $1 " ]]; then
             echo "Private"
