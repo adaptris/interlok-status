@@ -95,6 +95,7 @@ jobs:
 
     - name: Setup Git Config
       run: |
+        cd ./interlok-status
         git config user.name "Interlok Dev"
         git config user.email "<>"
 
