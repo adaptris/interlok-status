@@ -45,13 +45,12 @@ jobs:
     - name:  Build Status Page
       run: |
         privateRepos=(${{ steps.private-repos-list.outputs.privateRepos }})
-        getVisibility() {
-          if [[ " ${privateRepos[*]} " =~ " $1 " ]]; then
+         getVisibility() {
+          if [[ " ${privateRepos[@]} " =~ " $1 " ]]; then
             echo "Private"
-            return 1
+            return
           fi
-           echo "Public"
-           return 0
+          echo "Public"
         }
         allprojects=(${{ steps.projects-list.outputs.all }})
         allinstallers=("interlok-installer" "interlok-installer-cmd")
