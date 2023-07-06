@@ -36,8 +36,15 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
 
+    - name: Checkout Interlok Status
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.INTERLOKDEV_GITHUB_TOKEN }}
+        path: interlok-status
+
     - name:  Build Status Page
       run: |
+        echo "${{ steps.private-repos-list.outputs.privateRepos }}"
         privateRepos=${{ steps.private-repos-list.outputs.privateRepos }}
         getVisibility() {
           if [[ " ${privateRepos[*]} " =~ " $1 " ]]; then
