@@ -33,6 +33,8 @@ jobs:
       run: |
         PRIVATES_REPOS=($(gh repo list adaptris --no-archived --visibility private | grep -E 'interlok-|bip-' | sed -E 's/\t/ /'| sed -E 's/adaptris\/([^ ]+)( )+.*/"\1"/'  | tr "\n" " "))
         echo "privateRepos=$PRIVATES_REPOS" >> $GITHUB_OUTPUT
+      env:
+        GH_TOKEN: ${{ github.token }}
 
     - name:  Build Status Page
       run: |
@@ -45,7 +47,7 @@ jobs:
            echo "Public"
            return 0
         }
-        allprojects=${{ steps.projects-list.outputs.all }}
+        allprojects=(${{ steps.projects-list.outputs.all }})
         allinstallers=("interlok-installer" "interlok-installer-cmd")
 
         echo ""
