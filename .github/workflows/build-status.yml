@@ -31,7 +31,9 @@ jobs:
     - name: Get Private Repos
       id: private-repos-list
       run: |
+        echo $(gh repo list adaptris --no-archived --visibility private)
         PRIVATES_REPOS=$(gh repo list adaptris --no-archived --visibility private | grep -E 'interlok-|bip-' | sed -E 's/\t/ /'| sed -E 's/adaptris\/([^ ]+)( )+.*/"\1"/'  | tr "\n" " ")
+        echo "$PRIVATES_REPOS"
         echo "privateRepos=$PRIVATES_REPOS" >> $GITHUB_OUTPUT
       env:
         GH_TOKEN: ${{ github.token }}
