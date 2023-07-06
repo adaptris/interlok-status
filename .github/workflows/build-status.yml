@@ -14,16 +14,35 @@ jobs:
     needs: get-projects-list
     runs-on: ubuntu-latest
     steps:
+    
+    - name: Checkout Pipeline
+      uses: actions/checkout@v3
+      with:
+        repository: interlok-tooling/pipeline
+        ref: ${{ inputs.ref }}
+        token: ${{ secrets.PIPELINE_GITHUB_TOKEN }}
+        path: pipeline
+    - name: Get Projects List
+      id: projects-list
+      run: |
+        BASEDIR=$(pwd)
+        PROJECT_LISTS_DIR="$BASEDIR/pipeline/publish"
+        BOOTSTRAP_PROJECTS=$(cat $PROJECT_LISTS_DIR/bootstrap-projects.list)
+        OPTIONAL_PROJECTS=$(cat $PROJECT_LISTS_DIR/optional-projects.list)
+        PROJECT_LISTS="$BOOTSTRAP_PROJECTS"$'\n'"$OPTIONAL_PROJECTS"
+        sort $PROJECT_LISTS > $PROJECT_LISTS
+        PROJECT_LISTS_JSON=$(echo "$PROJECT_LISTS" | jq -R -s -c 'split("\n")[:-1]')
+        echo "all=$PROJECT_LISTS_JSON" >> $GITHUB_OUTPUT
 
     - name: Get Private Repos
-      id: get-private-repos-list
+      id: private-repos-list
       run: |
         PRIVATES_REPOS=($(gh repo list adaptris --no-archived --visibility private | grep -E 'interlok-|bip-' | sed -E 's/\t/ /'| sed -E 's/adaptris\/([^ ]+)( )+.*/"\1"/'  | tr "\n" " "))
         echo "privateRepos=$PRIVATES_REPOS" >> $GITHUB_OUTPUT
 
     - name:  Build Status Page
       run: |
-        privateRepos=${{ get-private-repos-list.outputs.privateRepos) }}
+        privateRepos=${{ private-repos-list.outputs.privateRepos) }}
         getVisibility() {
           if [[ " ${privateRepos[*]} " =~ " $1 " ]]; then
             echo "Private"
