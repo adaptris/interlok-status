@@ -37,7 +37,7 @@ jobs:
 
     - name:  Build Status Page
       run: |
-        privateRepos=${{ private-repos-list.outputs.privateRepos) }}
+        privateRepos=${{ steps.private-repos-list.outputs.privateRepos) }}
         getVisibility() {
           if [[ " ${privateRepos[*]} " =~ " $1 " ]]; then
             echo "Private"
@@ -46,7 +46,7 @@ jobs:
            echo "Public"
            return 0
         }
-        allprojects=${{ fromJson(projects-list.outputs.all) }}
+        allprojects=${{ fromJson(steps.projects-list.outputs.all) }}
         allprojects=$(echo ${allprojects[@]} | tr " " "\n" | sort | tr "\n" " ")
         echo ""
         echo "# interlok-status"
