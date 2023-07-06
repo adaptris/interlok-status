@@ -34,12 +34,12 @@ jobs:
       run: |
         privateRepos=${{ get-private-repos-list.outputs.privateRepos) }}
         getVisibility() {
-	        if [[ " ${privateRepos[*]} " =~ " $1 " ]]; then
-		         echo "Private"
-		         return 1
-	        fi
-	        echo "Public"
-	        return 0
+          if [[ " ${privateRepos[*]} " =~ " $1 " ]]; then
+            echo "Private"
+            return 1
+	   fi
+           echo "Public"
+	   return 0
         }
         allprojects=${{ fromJson(needs.get-projects-list.outputs.all) }}
         allprojects=$(echo ${allprojects[@]} | tr " " "\n" | sort | tr "\n" " ")
@@ -55,11 +55,11 @@ jobs:
         echo "| Name | Visibility | Status |  |"
         echo -e "| --- | --- | --- | --- |"
         for line in "${allprojects[@]}"
-        do        
-        	visibility=$(getVisibility "$line")
-        	#buildTool=$(if [$line == "interlok-ui"]; then "maven"; else "gradle"; fi)
-        	[[ $line == "interlok-ui" ]] && buildTool="maven" || buildTool="gradle"
-        	echo -e "| **[$line](https://github.com/adaptris/$line)** | ![Visibility](https://img.shields.io/static/v1?logo=github&label=&message=$visibility&labelColor=black&color=white&logoColor=lightgrey) | **v5:** [![Actions Status](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml/badge.svg?branch=develop)](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml?query=branch%3Adevelop) <br> **v4:** [![Action Status](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml/badge.svg?branch=develop-v4)](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml?query=branch%3Adevelop-v4) | [![codecov](https://codecov.io/gh/adaptris/$line/branch/develop/graph/badge.svg)](https://codecov.io/gh/adaptris/$line) [![CodeQL](https://github.com/adaptris/$line/workflows/CodeQL/badge.svg)](https://github.com/adaptris/$line/security/code-scanning) [![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://vscode.dev/github/adaptris/$line) |"     
+        do
+          visibility=$(getVisibility "$line")
+          #buildTool=$(if [$line == "interlok-ui"]; then "maven"; else "gradle"; fi)
+          [[ $line == "interlok-ui" ]] && buildTool="maven" || buildTool="gradle"
+          echo -e "| **[$line](https://github.com/adaptris/$line)** | ![Visibility](https://img.shields.io/static/v1?logo=github&label=&message=$visibility&labelColor=black&color=white&logoColor=lightgrey) | **v5:** [![Actions Status](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml/badge.svg?branch=develop)](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml?query=branch%3Adevelop) <br> **v4:** [![Action Status](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml/badge.svg?branch=develop-v4)](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml?query=branch%3Adevelop-v4) | [![codecov](https://codecov.io/gh/adaptris/$line/branch/develop/graph/badge.svg)](https://codecov.io/gh/adaptris/$line) [![CodeQL](https://github.com/adaptris/$line/workflows/CodeQL/badge.svg)](https://github.com/adaptris/$line/security/code-scanning) [![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://vscode.dev/github/adaptris/$line) |"     
         done
         echo ""
         echo "## Installers"
@@ -67,9 +67,9 @@ jobs:
         echo "| Name | Visibility | Status |  |"
         echo -e "| --- | --- | --- | --- |"
         for line in "${allinstallers[@]}"
-        do        
-        	visibility=$(getVisibility "$line")
-        	#buildTool=$(if [$line == "interlok-ui"]; then "maven"; else "gradle"; fi)
-        	[[ $line == "interlok-ui" ]] && buildTool="maven" || buildTool="gradle"
-        	echo -e "| **[$line](https://github.com/adaptris/$line)** | ![Visibility](https://img.shields.io/static/v1?logo=github&label=&message=$visibility&labelColor=black&color=white&logoColor=lightgrey) | **v5:** [![Actions Status](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml/badge.svg?branch=develop)](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml?query=branch%3Adevelop) <br> **v4:** [![Action Status](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml/badge.svg?branch=develop-v4)](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml?query=branch%3Adevelop-v4) | [![codecov](https://codecov.io/gh/adaptris/$line/branch/develop/graph/badge.svg)](https://codecov.io/gh/adaptris/$line) [![CodeQL](https://github.com/adaptris/$line/workflows/CodeQL/badge.svg)](https://github.com/adaptris/$line/security/code-scanning) [![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://vscode.dev/github/adaptris/$line) |"     
+        do
+          visibility=$(getVisibility "$line")
+          #buildTool=$(if [$line == "interlok-ui"]; then "maven"; else "gradle"; fi)
+          [[ $line == "interlok-ui" ]] && buildTool="maven" || buildTool="gradle"
+          echo -e "| **[$line](https://github.com/adaptris/$line)** | ![Visibility](https://img.shields.io/static/v1?logo=github&label=&message=$visibility&labelColor=black&color=white&logoColor=lightgrey) | **v5:** [![Actions Status](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml/badge.svg?branch=develop)](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml?query=branch%3Adevelop) <br> **v4:** [![Action Status](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml/badge.svg?branch=develop-v4)](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml?query=branch%3Adevelop-v4) | [![codecov](https://codecov.io/gh/adaptris/$line/branch/develop/graph/badge.svg)](https://codecov.io/gh/adaptris/$line) [![CodeQL](https://github.com/adaptris/$line/workflows/CodeQL/badge.svg)](https://github.com/adaptris/$line/security/code-scanning) [![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://vscode.dev/github/adaptris/$line) |"     
         done
