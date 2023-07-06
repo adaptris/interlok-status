@@ -55,33 +55,52 @@ jobs:
         allprojects=(${{ steps.projects-list.outputs.all }})
         allinstallers=("interlok-installer" "interlok-installer-cmd")
 
-        echo ""
-        echo "# interlok-status"
-        echo ""
-        echo "Status of all interlok projects"
-        echo ""
-        echo "Lastest tag: [![GitHub tag](https://img.shields.io/github/tag/adaptris/interlok.svg)](https://github.com/adaptris/interlok/tags)"
-        echo ""
-        echo "## Optionals"
-        echo ""
-        echo "| Name | Visibility | Status |  |"
-        echo -e "| --- | --- | --- | --- |"
+        readme=""
+        readme+="# interlok-status"
+        readme+="\n\n"
+        readme+="Status of all interlok projects"
+        readme+="\n\n"
+        readme+="Lastest tag: [![GitHub tag](https://img.shields.io/github/tag/adaptris/interlok.svg)](https://github.com/adaptris/interlok/tags)"
+        readme+="\n\n"
+        readme+="## Optionals"
+        readme+="\n\n"
+        readme+="| Name | Visibility | Status |  |"
+        readme+="\n"
+        readme+="| --- | --- | --- | --- |"
+        readme+="\n"
         for line in "${allprojects[@]}"
         do
           visibility=$(getVisibility "$line")
           #buildTool=$(if [$line == "interlok-ui"]; then "maven"; else "gradle"; fi)
           [[ $line == "interlok-ui" ]] && buildTool="maven" || buildTool="gradle"
-          echo -e "| **[$line](https://github.com/adaptris/$line)** | ![Visibility](https://img.shields.io/static/v1?logo=github&label=&message=$visibility&labelColor=black&color=white&logoColor=lightgrey) | **v5:** [![Actions Status](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml/badge.svg?branch=develop)](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml?query=branch%3Adevelop) <br> **v4:** [![Action Status](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml/badge.svg?branch=develop-v4)](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml?query=branch%3Adevelop-v4) | [![codecov](https://codecov.io/gh/adaptris/$line/branch/develop/graph/badge.svg)](https://codecov.io/gh/adaptris/$line) [![CodeQL](https://github.com/adaptris/$line/workflows/CodeQL/badge.svg)](https://github.com/adaptris/$line/security/code-scanning) [![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://vscode.dev/github/adaptris/$line) |"     
+          readme+="| **[$line](https://github.com/adaptris/$line)** | ![Visibility](https://img.shields.io/static/v1?logo=github&label=&message=$visibility&labelColor=black&color=white&logoColor=lightgrey) | **v5:** [![Actions Status](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml/badge.svg?branch=develop)](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml?query=branch%3Adevelop) <br> **v4:** [![Action Status](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml/badge.svg?branch=develop-v4)](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml?query=branch%3Adevelop-v4) | [![codecov](https://codecov.io/gh/adaptris/$line/branch/develop/graph/badge.svg)](https://codecov.io/gh/adaptris/$line) [![CodeQL](https://github.com/adaptris/$line/workflows/CodeQL/badge.svg)](https://github.com/adaptris/$line/security/code-scanning) [![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://vscode.dev/github/adaptris/$line) |"     
+          readme+="\n"
         done
-        echo ""
-        echo "## Installers"
-        echo ""
-        echo "| Name | Visibility | Status |  |"
-        echo -e "| --- | --- | --- | --- |"
+        readme+="\n"
+        readme+="## Installers"
+        readme+="\n\n"
+        readme+="| Name | Visibility | Status |  |"
+        readme+="\n"
+        readme+="| --- | --- | --- | --- |"
+        readme+="\n"
         for line in "${allinstallers[@]}"
         do
           visibility=$(getVisibility "$line")
           #buildTool=$(if [$line == "interlok-ui"]; then "maven"; else "gradle"; fi)
           [[ $line == "interlok-ui" ]] && buildTool="maven" || buildTool="gradle"
-          echo -e "| **[$line](https://github.com/adaptris/$line)** | ![Visibility](https://img.shields.io/static/v1?logo=github&label=&message=$visibility&labelColor=black&color=white&logoColor=lightgrey) | **v5:** [![Actions Status](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml/badge.svg?branch=develop)](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml?query=branch%3Adevelop) <br> **v4:** [![Action Status](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml/badge.svg?branch=develop-v4)](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml?query=branch%3Adevelop-v4) | [![codecov](https://codecov.io/gh/adaptris/$line/branch/develop/graph/badge.svg)](https://codecov.io/gh/adaptris/$line) [![CodeQL](https://github.com/adaptris/$line/workflows/CodeQL/badge.svg)](https://github.com/adaptris/$line/security/code-scanning) [![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://vscode.dev/github/adaptris/$line) |"     
+          readme+="| **[$line](https://github.com/adaptris/$line)** | ![Visibility](https://img.shields.io/static/v1?logo=github&label=&message=$visibility&labelColor=black&color=white&logoColor=lightgrey) | **v5:** [![Actions Status](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml/badge.svg?branch=develop)](https://github.com/adaptris/$line/actions/workflows/$buildTool-publish.yml?query=branch%3Adevelop) <br> **v4:** [![Action Status](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml/badge.svg?branch=develop-v4)](https://github.com/adaptris/$line/actions/workflows/gradle-publish.yml?query=branch%3Adevelop-v4) | [![codecov](https://codecov.io/gh/adaptris/$line/branch/develop/graph/badge.svg)](https://codecov.io/gh/adaptris/$line) [![CodeQL](https://github.com/adaptris/$line/workflows/CodeQL/badge.svg)](https://github.com/adaptris/$line/security/code-scanning) [![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://vscode.dev/github/adaptris/$line) |"     
+          readme+="\n"
         done
+        echo -e "$readme" > ./interlok-status/README.md
+
+    - name: Setup Git Config
+      run: |
+        git config user.name "Interlok Dev"
+        git config user.email "<>"
+
+    - name: Git Commit Push
+      run: |
+        cd ./interlok-status
+        git add ./README.md
+        git commit -m "Update README.md"
+        git push origin
