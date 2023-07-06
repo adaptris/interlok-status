@@ -46,7 +46,7 @@ jobs:
         privateRepos=(${{ steps.private-repos-list.outputs.privateRepos }})
         echo ${privateRepos[@]}
         getVisibility() {
-          if [[ "${privateRepos[@]}" =~ "$1" ]]; then
+          if [[ " ${privateRepos[@]} " =~ " $1 " ]]; then
             echo "Private"
             return
           fi
